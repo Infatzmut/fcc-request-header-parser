@@ -26,7 +26,14 @@ app.get("/api/hello", function (req, res) {
 });
 
 
+app.get("/api/whoami", function (req, res) {
+  const ipaddress = req.socket.remoteAddress;
+  const preferedLanguage = req.headers["accept-language"].match(/\w+\-\w+(.\w+)?\;q\=\d\.\d/)[0];
+  console.info(preferedLanguage);
+  const software = req.header('user-agent'); 
+  res.json({ipaddress, "language": preferedLanguage, software});
 
+})
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
